@@ -39,7 +39,7 @@ public class Shelf {
         if(resources.isEmpty()){
             throw new ShelfException("this shelf is empty");
         }
-        if(index<0 || index>resources.size()){
+        if(index<0 || index>=resources.size()){
             throw new ShelfException("index is not correct");
         }
         Resource<?> resource = resources.get(index);
@@ -49,7 +49,7 @@ public class Shelf {
 
     public void putOnResource(Resource<?> resource) throws ShelfException {
         if(resource.getPageNumber()+sumOfPages()>maxSizeOfPages){
-            throw new ShelfException("you can not put this on the shelf");
+            throw new ShelfException("you can not put this on the shelf - to less space");
         }
         if(!resources.isEmpty() && resources.get(0).getResource().getClass()!=resource.getResource().getClass()){
             throw new ShelfException("you can not put this on the shelf - not suitable type of resource");
@@ -59,7 +59,10 @@ public class Shelf {
 
     public void putOnResource(Integer index, Resource<?> resource) throws ShelfException {
         if(resource.getPageNumber()+sumOfPages()>maxSizeOfPages){
-            throw new ShelfException("you can not put this on the shelf");
+            throw new ShelfException("you can not put this on the shelf - to less space");
+        }
+        if(index<0 || index>resources.size()){
+            throw new ShelfException("index is not correct");
         }
         if(!resources.isEmpty() && resources.get(0).getResource().getClass()!=resource.getResource().getClass()){
             throw new ShelfException("you can not put this on the shelf - not suitable type of resource");
